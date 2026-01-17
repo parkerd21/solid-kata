@@ -40,9 +40,12 @@ public class AccountServiceShould {
 
     private AccountService accountService;
 
+    private PrintStatementService printStatementService;
+
     @Before
     public void setUp() {
-        accountService = new AccountService(transactionRepository, clock, console);
+        printStatementService = new PrintStatementService(console);
+        accountService = new AccountService(transactionRepository, clock, printStatementService);
         given(clock.today()).willReturn(TODAY);
     }
 
@@ -77,5 +80,4 @@ public class AccountServiceShould {
         inOrder.verify(console).printLine("01/04/2014 | 1000.00 | 1000.00");
     }
 }
-
 
